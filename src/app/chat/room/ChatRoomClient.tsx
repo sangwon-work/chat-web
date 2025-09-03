@@ -3,11 +3,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
 import { useRouter, useSearchParams } from 'next/navigation';
+import { ArrowLeft } from 'lucide-react';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import 'dayjs/locale/ko';
-import { ArrowLeft } from 'lucide-react';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -100,16 +100,20 @@ export default function ChatRoomClient() {
       </div>
 
       {/* 메시지 영역 */}
-      <div className="flex-1 min-h-0 overflow-y-auto p-4 bg-gray-100">
+      <div className="flex-1 min-h-0 overflow-y-auto p-4">
         <ul className="space-y-2">
           {messages.map((m, i) => (
-            <li key={i} className="bg-white p-2 rounded shadow text-sm break-words">
+            <li key={i} className="p-2 text-sm">
               <div>
-                <strong>{m.sender}:</strong> {m.message}
+                <strong>{m.sender}</strong>
+                <div className='flex items-end'>
+                  <p className='p-2 bg-gray-100 rounded-xl'>{m.message}</p>
+                  <p className='ms-1 text-xs text-gray-400'>{dayjs(m.sendat).tz('Asia/Seoul').format('A h:mm')}</p>
+                </div>
               </div>
-              <div className="text-xs text-gray-400 mt-1 text-right" suppressHydrationWarning>
-                {dayjs(m.sendat).tz('Asia/Seoul').format('A h:mm')}
-              </div>
+              {/*<div className="text-xs text-gray-400 mt-1 text-right" suppressHydrationWarning>*/}
+              {/*  {dayjs(m.sendat).tz('Asia/Seoul').format('A h:mm')}*/}
+              {/*</div>*/}
             </li>
           ))}
         </ul>

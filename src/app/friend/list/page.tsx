@@ -88,7 +88,7 @@ export default function FriendListPage() {
   }
 
   return (
-    <div className="flex flex-col h-screen p-4">
+    <div className="flex flex-col h-[calc(100dvh-var(--nav-h)-env(safe-area-inset-bottom,0px))] p-4">
       <div className='flex items-center justify-between mb-4'>
         <h1 className="text-xl font-semibold">친구 목록</h1>
         <div className='flex gap-2'>

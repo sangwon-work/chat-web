@@ -23,7 +23,7 @@ export default function BottomNavigation({ navHeight = 64 }: Props) {
   const pathname = usePathname();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-sm flex justify-around py-2 z-50">
+    <nav className="fixed bottom-0 h-15 left-0 right-0 bg-white border-t shadow-sm flex justify-around py-2 z-50">
       {navItems.map((item) => {
         const isActive = pathname.startsWith(item.href);
 

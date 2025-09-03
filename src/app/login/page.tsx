@@ -1,6 +1,6 @@
 // app/chat/page.tsx (Next.js 13/14 App Router 기준 예시)
 'use client';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {postLogin} from "@/lib/api/services/user-api";
 import { toast } from '@/lib/toast';
 import { AxiosError } from 'axios';
@@ -10,8 +10,14 @@ export default function LoginPage() {
   const [phone, setPhone] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [error, setError] = useState('');
+  const [isSavePhone, setIsSavePhone] = useState<boolean>(false);
 
   const router = useRouter();
+
+  useEffect(() => {
+    setPhone(localStorage.getItem('phone') || '');
+    setIsSavePhone(localStorage.getItem('isSavePhone') === 'true');
+  }, [])
 
   const handleLogin = async () => {
     if (!phone || !password) {
@@ -25,6 +31,12 @@ export default function LoginPage() {
       const response = await postLogin(phone, password);
       if (response.data.resCode === '0000') {
         localStorage.setItem('accesstoken', response.data.body.accesstoken);
+        if (isSavePhone) {
+          localStorage.setItem('phone', phone);
+        } else {
+          localStorage.removeItem('phone');
+        }
+        localStorage.setItem('isSavePhone', isSavePhone.toString());
         router.replace('/friend/list');
       } else {
         toast.error(response.data.message);
@@ -45,8 +57,12 @@ export default function LoginPage() {
     router.push('/login/signup');
   }
 
+  const handleSavePhone = () => {
+    setIsSavePhone(!isSavePhone);
+  }
+
   return (
-    <div className='w-screen h-screen flex items-center justify-center'>
+    <div className='w-screen flex items-center justify-center'>
       <div className="w-full max-w-md bg-white rounded-2xl p-8">
         <h1 className="text-3xl font-bold text-center text-indigo-600 mb-6">로그인</h1>
 
@@ -54,7 +70,7 @@ export default function LoginPage() {
           <label className="block text-gray-700 font-medium mb-1">📱 핸드폰 번호</label>
           <input
             type="tel"
-            placeholder="010-1234-5678"
+            placeholder="01012345678"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
             className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
@@ -82,6 +98,10 @@ export default function LoginPage() {
         >
           로그인
         </button>
+        <div className="flex items-center mt-4 gap-3">
+          <input type='checkbox' checked={isSavePhone} onChange={handleSavePhone} className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" />
+          <p>전화번호 저장하기</p>
+        </div>
 
         <div className="mt-6 text-center">
           <span className="text-gray-600">아직 계정이 없으신가요?</span>
