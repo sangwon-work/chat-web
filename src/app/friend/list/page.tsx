@@ -90,7 +90,7 @@ export default function FriendListPage() {
   return (
     <div className="flex flex-col h-[calc(100dvh-var(--nav-h)-env(safe-area-inset-bottom,0px))] p-4">
       <div className='flex items-center justify-between mb-4'>
-        <h1 className="text-xl font-semibold">친구 목록</h1>
+        <h1 className="text-xl font-semibold">친구</h1>
         <div className='flex gap-2'>
           <div onClick={handleFriendAdd} className="p-2 rounded-full hover:bg-gray-100">
             <PlusIcon className="w-6 h-6 text-blue-600" />
