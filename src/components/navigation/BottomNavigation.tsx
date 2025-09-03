@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { User2Icon, MessageCircleIcon } from 'lucide-react';
+import { User2Icon, MessageCircleIcon, CircleEllipsis } from 'lucide-react';
 
 const navItems = [
   {
@@ -15,6 +15,11 @@ const navItems = [
     icon: <MessageCircleIcon className="w-6 h-6" />,
     label: '채팅',
   },
+  {
+    href: '/more',
+    icon: <CircleEllipsis className="w-6 h-6" />,
+    label: '더보기'
+  }
 ];
 
 type Props = { navHeight?: number };
