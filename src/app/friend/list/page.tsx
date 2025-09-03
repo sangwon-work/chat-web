@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import {LogOutIcon, PlusIcon} from 'lucide-react';
+import {LogOutIcon, UserPlus} from 'lucide-react';
 import {useRouter} from "next/navigation";
 import {AxiosError} from "axios";
 import {toast} from "@/lib/toast";
@@ -93,13 +93,13 @@ export default function FriendListPage() {
         <h1 className="text-xl font-semibold">친구</h1>
         <div className='flex gap-2'>
           <div onClick={handleFriendAdd} className="p-2 rounded-full hover:bg-gray-100">
-            <PlusIcon className="w-6 h-6 text-blue-600" />
+            <UserPlus className="w-5 h-5 text-black" />
           </div>
           <div
             onClick={handleLogout}
             className="p-2 rounded-full hover:bg-gray-100 cursor-pointer"
           >
-            <LogOutIcon className="w-6 h-6 text-red-500" />
+            <LogOutIcon className="w-5 h-5 text-black" />
           </div>
         </div>
       </div>
