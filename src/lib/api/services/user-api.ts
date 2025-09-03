@@ -1,19 +1,19 @@
 import {authInstance, refreshAuthInstance} from '../axios';
 
 export const postSignup = async (phone: string, password: string, nickname: string) => {
-  return authInstance.post('/user/signup', { phone, password, nickname });
+  return authInstance.post('/auth/signup', { phone, password, nickname });
 };
 
 export const postLogin = async (phone: string, password: string) => {
-  return authInstance.post('/user/login', { phone, password });
+  return authInstance.post('/auth/login', { phone, password });
 };
 
 export const getAccessTokenValidation = async () => {
-  return authInstance.get('/user/token-validation');
+  return authInstance.get('/auth/token-validation');
 };
 
 export const postRefreshToken = async () => {
-  return refreshAuthInstance.get('/user/refresh-token');
+  return refreshAuthInstance.post('/auth/refresh-token');
 };
 
 export const getUserInfo = async () => {

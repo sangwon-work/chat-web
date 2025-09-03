@@ -25,8 +25,6 @@ export default function LoginPage() {
       const response = await postLogin(phone, password);
       if (response.data.resCode === '0000') {
         localStorage.setItem('accesstoken', response.data.body.accesstoken);
-        localStorage.setItem('refreshtoken', response.data.body.refreshtoken);
-
         router.replace('/friend/list');
       } else {
         toast.error(response.data.message);

@@ -8,13 +8,6 @@ import {useRouter} from "next/navigation";
 import FriendListItem from "@/components/friend/FriendListItem";
 import {useFriendList} from "@/hooks/friend/useFriendList";
 
-interface Friend {
-  friendkey: number;
-  frienduserpkey: number;
-  nickname: string;
-  profileimageurl: string;
-}
-
 export default function ChatAddPage() {
   const [selected, setSelected] = useState<number[]>([]);
   const [newRoomName, setNewRoomName] = useState<string>('');
@@ -50,7 +43,6 @@ export default function ChatAddPage() {
     // 2. websocket join
     try {
       const response = await postCreateChatRoom(newRoomName, selected);
-      console.log(response);
       if (response.data.resCode === '0000') {
         const chatroompkey: number = response.data.body.chatroompkey;
         const roomid: string = response.data.body.roomid;

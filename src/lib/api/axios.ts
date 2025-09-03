@@ -7,6 +7,7 @@ export const authInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true, // 쿠키 전송
 });
 
 // 요청 인터셉터 (예: 인증 토큰 자동 첨부)
@@ -36,14 +37,11 @@ export const refreshAuthInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  withCredentials: true, // 쿠키 전송
 });
 
 refreshAuthInstance.interceptors.request.use(
   (config) => {
-    const token = typeof window !== 'undefined' ? localStorage.getItem('refreshtoken') : null;
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
-    }
     return config;
   },
   (error) => Promise.reject(error)

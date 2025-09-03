@@ -56,7 +56,9 @@ export default function ChatListPage() {
   return (
     <div
       // 네비 높이를 CSS 변수로 (레이아웃에서 이미 내려줬다면 생략 가능)
-      style={{ ['--nav-h' as any]: '100px' }}
+      style={{
+        '--nav-h': '100px',
+      } as React.CSSProperties}
       className="max-w-2xl mx-auto p-6"
     >
       {/* 화면 전체 높이에서 네비 높이만큼 뺀 컨테이너 */}

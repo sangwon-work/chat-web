@@ -15,7 +15,6 @@ export default function Home() {
 
   const tokenValidation = async () => {
     try {
-      console.log('process.env.NEXT_PUBLIC_API_BASE_URL : ', process.env.NEXT_PUBLIC_API_BASE_URL);
       const response = await getAccessTokenValidation();
       if (response.data.resCode === '0000') {
         // 메인 페이지로 이동
