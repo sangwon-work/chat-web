@@ -1,5 +1,5 @@
 import { Suspense } from 'react';
-import ChatRoomClient from './ChatRoomClient';
+import ChatRoomClient from '../../../components/chat/room/ChatRoomClient';
 
 export default function Page() {
   return (
