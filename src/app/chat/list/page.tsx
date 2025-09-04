@@ -6,11 +6,11 @@ import { format } from 'date-fns';
 import {getChattingRoomList} from "@/lib/api/services/chat-api";
 import { toast } from '@/lib/toast';
 import { AxiosError } from 'axios';
-import { PlusIcon } from '@heroicons/react/24/solid';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import 'dayjs/locale/ko';
+import { MessageCirclePlus } from 'lucide-react';
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -71,10 +71,10 @@ export default function ChatListPage() {
         <h1 className="text-2xl font-bold text-gray-800">채팅</h1>
         <button
           onClick={handleChatAddPage}
-          className="p-2 rounded-full hover:bg-blue-700 transition shadow"
+          className="p-2 rounded-full hover:bg-blue-700 transition"
           title="새 채팅방 만들기"
         >
-          <PlusIcon className="w-5 h-5 text-gray-400" />
+          <MessageCirclePlus className="w-5 h-5 text-black" />
         </button>
       </div>
       <div className="flex flex-col">
