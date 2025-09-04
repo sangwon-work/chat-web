@@ -3,11 +3,15 @@ import type { NextRequest } from 'next/server'
 
 export const config = {
   matcher: [
-    '/chat/:path*',
-    '/friend/:path*',
+    // '/chat/:path*',
+    // '/friend/:path*',
   ],
 }
 
+/**
+ * 사용 안함
+ * @param request
+ */
 export async function middleware(request: NextRequest) {
   const url = request.nextUrl.clone();
 

@@ -1,13 +1,12 @@
 'use client';
 
-import React, {Suspense} from "react";
+import React from "react";
 import "./globals.css";
 import { ToastProvider } from "@/context/ToastContext";
 import ToastContainer from "@/components/toast/ToastContainer";
 import ClientContextBinder from "@/lib/ClientContextBinder";
 import BottomNavigation from "@/components/navigation/BottomNavigation";
 import {usePathname} from "next/navigation";
-import TokenSync from "@/app/TokenSync";
 
 export default function RootLayout({
   children,
@@ -38,9 +37,6 @@ export default function RootLayout({
         >
           {/* 스크롤되는 주 영역: 뷰포트 - 네비 */}
           <main className="h-[calc(100dvh-var(--nav-h)-env(safe-area-inset-bottom,0px))] overflow-y-auto">
-            <Suspense fallback={null}>
-              <TokenSync />
-            </Suspense>
             <ToastProvider>
               <ClientContextBinder />
               <ToastContainer />
@@ -53,9 +49,6 @@ export default function RootLayout({
       ) : (
         // 채팅방 페이지는 각 페이지에서 내부 스크롤을 관리
         <main className="h-[100dvh] overflow-hidden">
-          <Suspense fallback={null}>
-            <TokenSync />
-          </Suspense>
           <ToastProvider>
             <ClientContextBinder />
             <ToastContainer />
