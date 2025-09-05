@@ -64,11 +64,11 @@ export default function ChatListPage() {
   }
 
   return (
-    <div className="h-[calc(100dvh-var(--nav-h)-env(safe-area-inset-bottom,0px))] max-w-2xl mx-auto p-6">
+    <div className="h-[calc(100dvh-var(--nav-h)-env(safe-area-inset-bottom,0px))] p-4">
       {/* 화면 전체 높이에서 네비 높이만큼 뺀 컨테이너 */}
       {/* 헤더 영역(고정 높이) */}
-      <div className="shrink-0 mb-6 h-5 flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-800">채팅</h1>
+      <div className="shrink-0 mb-4 flex justify-between items-center">
+        <h1 className="text-xl font-semibold">채팅</h1>
         <button
           onClick={handleChatAddPage}
           className="p-2 rounded-full hover:bg-blue-700 transition"

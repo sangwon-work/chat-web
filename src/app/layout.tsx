@@ -16,7 +16,7 @@ export default function RootLayout({
   const pathname = usePathname();
 
   // 네비게이션을 제외할 경로 목록
-  const excludedPrefixes = ['/chat/room', '/login', '/login/signup'];
+  const excludedPrefixes = ['/chat/room', '/login', '/login/signup', '/profile'];
   const shouldShowNavigation = !excludedPrefixes.some(p => pathname.startsWith(p));
 
   // 네비 높이 한 군데서 관리

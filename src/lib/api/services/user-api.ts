@@ -23,3 +23,7 @@ export const getUserInfo = async () => {
 export const getUserSearch = async (search: string) => {
   return authInstance.get(`/user/search?search=${search}`);
 }
+
+export const getUserProfile = async (userpkey: number) => {
+  return authInstance.get(`/user/profile?userpkey=${userpkey}`);
+}

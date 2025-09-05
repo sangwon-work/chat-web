@@ -66,9 +66,9 @@ export default function ChatAddPage() {
   };
 
   return (
-    <main className="max-w-2xl mx-auto p-6">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-800">📂 채팅방 생성</h1>
+    <main className="max-w-2xl mx-auto p-4">
+      <div className="flex justify-center items-center mb-6">
+        <h1 className="text-xl font-semibold">새로운 채팅</h1>
       </div>
 
       <div className="flex items-center gap-2 mb-6">
@@ -81,7 +81,7 @@ export default function ChatAddPage() {
         />
         <button
           onClick={handleAddRoom}
-          className="bg-green-500 text-white px-4 py-2 rounded-xl hover:bg-green-600 transition"
+          className="bg-amber-300 text-white px-4 py-2 rounded-xl transition"
         >
           추가
         </button>

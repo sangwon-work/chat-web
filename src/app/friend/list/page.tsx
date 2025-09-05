@@ -10,20 +10,14 @@ import {postCreateOneToOneChatRoom} from "@/lib/api/services/chat-api";
 import FriendListItem from "@/components/friend/FriendListItem";
 import {useFriendList} from "@/hooks/friend/useFriendList";
 
-interface Friend {
-  friendkey: number;
-  frienduserpkey: number;
-  nickname: string;
-  profileimageurl: string;
-}
-
 interface User {
+  userpkey: number;
   nickname: string;
   profileimageurl: string;
 }
 
 export default function FriendListPage() {
-  const [user, setUser] = useState<User>({ nickname: '', profileimageurl: '' });
+  const [user, setUser] = useState<User>({ userpkey: 0, nickname: '', profileimageurl: '' });
 
   const { friends, friendCount, fetchFriendList } = useFriendList();
 
@@ -64,27 +58,8 @@ export default function FriendListPage() {
     router.replace('/login');
   }
 
-  const handleOneToOneChat = async (userpkey: number) => {
-    try {
-      const response = await postCreateOneToOneChatRoom(userpkey);
-      if (response.data.resCode === '0000') {
-        const chatroompkey: number = response.data.body.chatroompkey;
-        const roomid: string = response.data.body.roomid;
-
-        router.push(`/chat/room?chatroompkey=${chatroompkey}&roomid=${roomid}`);
-      } else {
-        toast.error(response.data.body.message.kor);
-      }
-    } catch (error) {
-      const axiosError = error as AxiosError;
-
-      if (axiosError.response?.status === 401) {
-        toast.error(axiosError.message);
-        router.replace('/login');
-      } else {
-        console.error('API Error:', axiosError);
-      }
-    }
+  const handelProfilePage = (userpkey: number) => {
+    router.push(`/profile?userpkey=${userpkey}`);
   }
 
   return (
@@ -107,6 +82,7 @@ export default function FriendListPage() {
       <ul className="space-y-1 overflow-y-auto flex-1 pb-[64px]">
         <li
           className="flex items-center gap-2 ps-2 pt-2 pe-2 bg-white hover:bg-gray-50 transition"
+          onClick={() => handelProfilePage(user.userpkey)}
         >
           <img
             src={'/default-profile.png'}
@@ -128,7 +104,8 @@ export default function FriendListPage() {
             key={friend.frienduserpkey}
             nickname={friend.nickname}
             profileImageUrl={friend.profileimageurl}
-            onDoubleClick={() => {handleOneToOneChat(friend.frienduserpkey)}}
+            // onDoubleClick={() => {handleOneToOneChat(friend.frienduserpkey)}}
+            onClick={() => {handelProfilePage(friend.frienduserpkey)}}
           />
         ))}
       </ul>

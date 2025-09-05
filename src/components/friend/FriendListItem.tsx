@@ -9,6 +9,7 @@ interface FriendListItemProps {
   onDoubleClick?: () => void;
   onCheckChange?: () => void; // 체크박스 토글
   showCheckbox?: boolean;
+  onClick?: () => void;
 }
 
 export default function FriendListItem({
@@ -17,12 +18,14 @@ export default function FriendListItem({
   isChecked = false,
   onDoubleClick,
   onCheckChange,
+  onClick,
   showCheckbox = false,
 }: FriendListItemProps) {
   return (
     <li
       className="flex items-center gap-2 p-2 bg-white hover:bg-gray-50 transition"
       onDoubleClick={onDoubleClick}
+      onClick={onClick}
     >
       <img
         src={profileImageUrl || '/default-profile.png'}
