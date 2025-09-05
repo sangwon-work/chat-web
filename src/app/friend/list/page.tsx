@@ -92,12 +92,12 @@ export default function FriendListPage() {
       <div className='flex items-center justify-between mb-4'>
         <h1 className="text-xl font-semibold">친구</h1>
         <div className='flex gap-2'>
-          <div onClick={handleFriendAdd} className="p-2 rounded-full hover:bg-gray-100">
+          <div onClick={handleFriendAdd} className="p-2 rounded-full">
             <UserPlus className="w-5 h-5 text-black" />
           </div>
           <div
             onClick={handleLogout}
-            className="p-2 rounded-full hover:bg-gray-100 cursor-pointer"
+            className="p-2 rounded-full cursor-pointer"
           >
             <LogOutIcon className="w-5 h-5 text-black" />
           </div>
@@ -117,7 +117,7 @@ export default function FriendListPage() {
             <p className="text-sm text-gray-500">{''}</p>
           </div>
         </li>
-        <div className='border-b-[1.8] border-gray-300 pt-2'/>
+        <div className='border-b-[1.8] border-gray-100 pt-2'/>
         {/* 친구 목록 */}
         <div className='flex pt-2'>
           <p className='pe-1 ps-2 text-[13px] text-gray-400'>친구</p>
