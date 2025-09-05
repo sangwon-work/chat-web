@@ -27,7 +27,7 @@ export default function FriendListItem({
       <img
         src={profileImageUrl || '/default-profile.png'}
         alt={nickname}
-        className="w-12 h-12 rounded-full object-cover"
+        className="w-10 h-10 rounded-full object-cover"
       />
       <div className="flex-1 ps-1">
         <p className="text-base font-medium">{nickname}</p>
