@@ -20,10 +20,11 @@ interface RequesterUser {
 }
 
 export default function AddFriendPage() {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState<string>('');
   const [searchResult, setSearchResult] = useState<User[]>([]);
   const [added, setAdded] = useState(false);
   const [requesterUser, setRequestUser] = useState<RequesterUser[]>([]);
+  const [isSearchBtn, setIsSearchBtn] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -31,6 +32,10 @@ export default function AddFriendPage() {
     // 친구 요청 목록 조회
     fetchFriendDiscover();
   }, []);
+
+  useEffect(() => {
+    setIsSearchBtn(searchTerm.length > 0);
+  }, [searchTerm]);
 
   const fetchFriendDiscover = async () => {
     try {
@@ -111,22 +116,32 @@ export default function AddFriendPage() {
 
   return (
     <div className="p-4">
-      <h1 className="text-xl font-semibold mb-4">친구 추가</h1>
-
-      <div className="flex gap-2 mb-4">
-        <input
-          type="text"
-          placeholder="아이디 또는 전화번호 검색"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="flex-1 px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
+      <div className="flex justify-between items-center">
+        <button
+        onClick={() => {
+          router.back();
+        }}
+          className="text-black"
+        >
+          X
+        </button>
+        <h1 className="text-xl font-semibold mb-4">친구 추가</h1>
         <button
           onClick={handleSearch}
-          className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+          className={`w-9 h-9 ${isSearchBtn ? 'text-black' : 'text-gray-300'}`}
+          disabled={!isSearchBtn}
         >
-          검색
+          확인
         </button>
+      </div>
+      <div className='flex my-2'>
+        <input
+          type="text"
+          placeholder="전화번호 검색"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="flex-1 px-3 py-2 border-b"
+        />
       </div>
 
       {
@@ -157,7 +172,7 @@ export default function AddFriendPage() {
         ))
       }
 
-      <div className='border-t-[1.5] border-gray-400'>
+      <div className='border-gray-400'>
         <p className='pt-2'>추천친구</p>
       </div>
       {
