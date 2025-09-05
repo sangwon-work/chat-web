@@ -64,7 +64,7 @@ export default function LoginPage() {
   return (
     <div className='w-screen flex items-center justify-center'>
       <div className="w-full max-w-md bg-white rounded-2xl p-8">
-        <h1 className="text-3xl font-bold text-center text-indigo-600 mb-6">로그인</h1>
+        <h1 className="text-3xl font-bold text-center text-black mb-6">로그인</h1>
 
         <div className="mb-4">
           <label className="block text-gray-700 font-medium mb-1">📱 핸드폰 번호</label>
@@ -94,12 +94,12 @@ export default function LoginPage() {
 
         <button
           onClick={handleLogin}
-          className="w-full bg-indigo-500 text-white py-2 rounded-lg font-semibold hover:bg-indigo-600 transition duration-200"
+          className="w-full bg-amber-300 text-white py-2 rounded-lg font-semibold transition duration-200"
         >
           로그인
         </button>
         <div className="flex items-center mt-4 gap-3">
-          <input type='checkbox' checked={isSavePhone} onChange={handleSavePhone} className="w-4 h-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500" />
+          <input type='checkbox' checked={isSavePhone} onChange={handleSavePhone} className="w-4 h-4 text-amber-300 border-gray-300 rounded focus:ring-amber-300" />
           <p>전화번호 저장하기</p>
         </div>
 
@@ -108,7 +108,7 @@ export default function LoginPage() {
           <br />
           <button
             onClick={handleSignupPage}
-            className="mt-2 inline-block text-indigo-500 hover:underline text-sm font-medium"
+            className="mt-2 inline-block text-amber-300 hover:underline text-sm font-medium"
           >
             회원가입
           </button>

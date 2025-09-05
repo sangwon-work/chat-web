@@ -9,6 +9,7 @@ import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import {Message} from "@/types/MessageTypes";
 import { groupByDate, Row } from "@/hooks/chat/groupMessagesByDate";
+import { jwtDecode } from 'jwt-decode';
 
 import 'dayjs/locale/ko';
 
@@ -27,6 +28,7 @@ export default function ChatRoomClient() {
   const [roomname, setRoomname] = useState('');
   const [rows, setRow] = useState<Row[]>([]);
   const [isSendBtnHidden, setIsSendBtnHidden] = useState<boolean>(false);
+  const [userPkey, setUserPkey] = useState<number>(0);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const socketRef = useRef<Socket | null>(null);
@@ -61,11 +63,12 @@ export default function ChatRoomClient() {
       // optional: console.log('📥 pong');
     });
 
-    socket.on('message', (msg: { sender: string; message: string; sendat: string }) => {
+    socket.on('message', (msg: Message) => {
       setMessages(prev => [...prev, msg]);
     });
 
-    socket.on('joined', (room: { roomId: string; roomname: string; messagelist: { sender: string; message: string; sendat: string }[] }) => {
+    socket.on('joined', (room: { roomId: string; roomname: string; messagelist: Message[] }) => {
+      console.log('room.messagelist : ', room.messagelist);
       setRoomname(room.roomname);
       setMessages(room.messagelist);
     });
@@ -91,6 +94,15 @@ export default function ChatRoomClient() {
   useEffect(() => {
     setIsSendBtnHidden(input.length === 0);
   }, [input]);
+
+  useEffect(() => {
+    const token = typeof window !== 'undefined' ? localStorage.getItem('accesstoken') : null;
+    const payload: { userpkey: number, nickname: string } | null = token ? jwtDecode(token) : null;
+    console.log('payload : ', payload);
+    if (payload) {
+      setUserPkey(payload.userpkey);
+    }
+  }, []);
 
   const sendMessage = () => {
     if (input && socketRef.current) {
@@ -129,20 +141,25 @@ export default function ChatRoomClient() {
             if (!m) return null;
             return (
               <li key={idx} className="px-2 mt-2">
-                {/* 예시: 좌/우 버블은 senderId로 분기 */}
-                {/*<div className={`max-w-[75%] rounded-2xl px-3 py-2 shadow ${m.senderId === 'me' ? 'ml-auto bg-indigo-500 text-white' : 'mr-auto bg-white border'}`}>*/}
-                {/*  <div className="whitespace-pre-wrap">{m.text}</div>*/}
-                {/*  <div className="mt-1 text-[10px] opacity-60 text-right">*/}
-                {/*    {dayjs(m.createdAt).format('HH:mm')}*/}
-                {/*  </div>*/}
-                {/*</div>*/}
-                <p className='text-[0.8rem]'>{m.sender}</p>
-                <div className='flex justify-start items-end gap-2 mt-1'>
-                  <div className="whitespace-pre-wrap bg-white p-[0.5rem] text-[0.9rem] rounded-2xl">{m.message}</div>
-                  <div className="mt-1 text-[10px] opacity-60 text-right">
-                    {dayjs(m.sendat).format('HH:mm')}
+                 {/*예시: 좌/우 버블은 senderId로 분기*/}
+                {m.userpkey === userPkey ? (
+                  <div className={`flex justify-end items-end gap-2 max-w-[75%] py-2 ml-auto`}>
+                    <div className="mt-1 text-[10px] opacity-60 text-right">
+                      {dayjs(m.sendat).format('HH:mm')}
+                    </div>
+                    <div className={`whitespace-pre-wrap p-[0.5rem] text-[0.9rem] rounded-2xl bg-amber-300`}>{m.message}</div>
                   </div>
-                </div>
+                ) : (
+                  <>
+                    <p className='text-[0.8rem]'>{m.sender}</p>
+                    <div className='flex justify-start items-end gap-2 mt-1'>
+                      <div className="whitespace-pre-wrap p-[0.5rem] text-[0.9rem] rounded-2xl bg-white">{m.message}</div>
+                      <div className="mt-1 text-[10px] opacity-60 text-right">
+                        {dayjs(m.sendat).format('HH:mm')}
+                      </div>
+                    </div>
+                  </>
+                )}
               </li>
             );
           })}

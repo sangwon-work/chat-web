@@ -50,8 +50,8 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
-      <div className="w-full max-w-md bg-white rounded-2xl shadow p-6">
+    <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="w-full max-w-md rounded-2xl p-6">
         <h1 className="text-2xl font-bold mb-6 text-center">회원가입</h1>
         {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -61,7 +61,7 @@ export default function SignupPage() {
             placeholder="닉네임"
             value={form.nickname}
             onChange={handleChange}
-            className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring focus:ring-blue-400"
+            className="w-full border border-gray-300 p-3 rounded-2xl focus:outline-none focus:ring focus:ring-blue-400"
           />
           <input
             type="tel"
@@ -69,7 +69,7 @@ export default function SignupPage() {
             placeholder="핸드폰 번호"
             value={form.phone}
             onChange={handleChange}
-            className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring focus:ring-blue-400"
+            className="w-full border border-gray-300 p-3 rounded-2xl focus:outline-none focus:ring focus:ring-blue-400"
           />
           <input
             type="password"
@@ -77,11 +77,11 @@ export default function SignupPage() {
             placeholder="비밀번호"
             value={form.password}
             onChange={handleChange}
-            className="w-full border border-gray-300 p-3 rounded focus:outline-none focus:ring focus:ring-blue-400"
+            className="w-full border border-gray-300 p-3 rounded-2xl focus:outline-none focus:ring focus:ring-blue-400"
           />
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-3 rounded hover:bg-blue-700 transition"
+            className="w-full bg-amber-300 text-white py-3 rounded-2xl transition"
           >
             가입하기
           </button>

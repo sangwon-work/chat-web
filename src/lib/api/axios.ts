@@ -54,7 +54,7 @@ export const authInstance = axios.create({
 });
 
 // 요청 인터셉터 (예: 인증 토큰 자동 첨부)
-// @ts-ignore
+// @ts-expect-error: 라이브러리 타입 정의 오류 (임시 우회)
 authInstance.interceptors.request.use((config) => attachAuthHeader(config));
 
 // 응답 인터셉터: 401 → refresh 후 재시도
