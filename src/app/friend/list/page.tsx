@@ -1,14 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import {Suspense, useEffect, useState} from 'react';
 import {LogOutIcon, UserPlus} from 'lucide-react';
 import {useRouter} from "next/navigation";
 import {AxiosError} from "axios";
 import {toast} from "@/lib/toast";
 import {getUserInfo} from "@/lib/api/services/user-api";
-import {postCreateOneToOneChatRoom} from "@/lib/api/services/chat-api";
 import FriendListItem from "@/components/friend/FriendListItem";
 import {useFriendList} from "@/hooks/friend/useFriendList";
+import Image from 'next/image';
 
 interface User {
   userpkey: number;
@@ -58,8 +58,8 @@ export default function FriendListPage() {
     router.replace('/login');
   }
 
-  const handelProfilePage = (userpkey: number) => {
-    router.push(`/profile?userpkey=${userpkey}`);
+  const handelProfilePage = (userpkey: number, ismeyn: boolean) => {
+    router.push(`/profile?userpkey=${userpkey}&ismeyn=${ismeyn}`);
   }
 
   return (
@@ -80,19 +80,23 @@ export default function FriendListPage() {
       </div>
 
       <ul className="space-y-1 overflow-y-auto flex-1 pb-[64px]">
-        <li
-          className="flex items-center gap-2 ps-2 pt-2 pe-2 bg-white hover:bg-gray-50 transition"
-          onClick={() => handelProfilePage(user.userpkey)}
-        >
-          <img
-            src={'/default-profile.png'}
-            className="w-12 h-12 rounded-full object-cover"
-           alt={''}/>
-          <div className="flex-1 ps-1">
-            <p className="text-base font-medium">{user.nickname}</p>
-            <p className="text-sm text-gray-500">{''}</p>
-          </div>
-        </li>
+        <Suspense fallback={<div>Loading...</div>}>
+          <li
+            className="flex items-center gap-2 ps-2 pt-2 pe-2 bg-white hover:bg-gray-50 transition"
+            onClick={() => handelProfilePage(user.userpkey, true)}
+          >
+            <Image
+              src={'/default-profile.png'}
+              width={40}
+              height={40}
+              className="w-12 h-12 rounded-full object-cover"
+              alt={''}/>
+            <div className="flex-1 ps-1">
+              <p className="text-base font-medium">{user.nickname}</p>
+              <p className="text-sm text-gray-500">{''}</p>
+            </div>
+          </li>
+        </Suspense>
         <div className='border-b-[1.8] border-gray-100 pt-2'/>
         {/* 친구 목록 */}
         <div className='flex pt-2'>
@@ -100,13 +104,15 @@ export default function FriendListPage() {
           <p className='text-[13px] text-gray-400'>{friendCount}</p>
         </div>
         {friends.map((friend, idx) => (
-          <FriendListItem
-            key={friend.frienduserpkey}
-            nickname={friend.nickname}
-            profileImageUrl={friend.profileimageurl}
-            // onDoubleClick={() => {handleOneToOneChat(friend.frienduserpkey)}}
-            onClick={() => {handelProfilePage(friend.frienduserpkey)}}
-          />
+          <div key={idx}>
+            <Suspense fallback={<div>Loading...</div>}>
+              <FriendListItem
+                nickname={friend.nickname}
+                profileImageUrl={friend.profileimageurl}
+                onClick={() => {handelProfilePage(friend.frienduserpkey, false)}}
+              />
+            </Suspense>
+          </div>
         ))}
       </ul>
     </div>

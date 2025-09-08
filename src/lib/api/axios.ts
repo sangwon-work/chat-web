@@ -1,5 +1,5 @@
 // lib/axios.ts
-import axios, { AxiosError, AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig } from 'axios';
 import {postRefreshToken} from "@/lib/api/services/user-api";
 
 let isRefreshing = false;
@@ -72,7 +72,7 @@ authInstance.interceptors.response.use(
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           refreshQueue.push({
-            resolve: (newToken) => {
+            resolve: () => {
               try {
                 const cfg = attachAuthHeader(originalConfig);
                 resolve(authInstance(cfg));
@@ -153,4 +153,8 @@ unAuthInstance.interceptors.response.use(
   }
 );
 
-export default {authInstance, unAuthInstance};
+const instance = {
+  authInstance, unAuthInstance
+}
+
+export default instance;

@@ -1,6 +1,6 @@
 'use client';
 
-import React from "react";
+import React, {Suspense} from "react";
 import "./globals.css";
 import { ToastProvider } from "@/context/ToastContext";
 import ToastContainer from "@/components/toast/ToastContainer";
@@ -44,16 +44,18 @@ export default function RootLayout({
             </ToastProvider>
           </main>
 
-          <BottomNavigation navHeight={NAV_H} />
+          <BottomNavigation/>
         </div>
       ) : (
         // 채팅방 페이지는 각 페이지에서 내부 스크롤을 관리
         <main className="h-[100dvh] overflow-hidden">
-          <ToastProvider>
-            <ClientContextBinder />
-            <ToastContainer />
-            {children}
-          </ToastProvider>
+          <Suspense fallback={<div>Loading...</div>}>
+            <ToastProvider>
+              <ClientContextBinder />
+              <ToastContainer />
+              {children}
+            </ToastProvider>
+          </Suspense>
         </main>
       )}
       </body>

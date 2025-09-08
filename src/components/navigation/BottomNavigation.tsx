@@ -22,9 +22,7 @@ const navItems = [
   }
 ];
 
-type Props = { navHeight?: number };
-
-export default function BottomNavigation({ navHeight = 64 }: Props) {
+export default function BottomNavigation() {
   const pathname = usePathname();
 
   return (

@@ -1,10 +1,10 @@
 'use client'
 
-import {usePathname, useRouter, useSearchParams} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
+import Image from 'next/image';
 import {useEffect, useState} from "react";
 import {MessageCircle, Pencil} from "lucide-react";
-import Link from "next/link";
-import {getUserInfo, getUserProfile} from "@/lib/api/services/user-api";
+import {getUserProfile} from "@/lib/api/services/user-api";
 import {AxiosError} from "axios";
 import {toast} from "@/lib/toast";
 import {postCreateOneToOneChatRoom} from "@/lib/api/services/chat-api";
@@ -15,41 +15,22 @@ interface User {
   profileimageurl: string;
 }
 
-const navItems = [
-  {
-    href: '/chat/list',
-    icon: <MessageCircle className="w-6 h-6 color-black" />,
-    label: '채팅',
-  },
-  {
-    href: '/profile',
-    icon: <Pencil className="w-6 h-6 color-black" />,
-    label: '프로필 편집',
-  },
-];
-
 export default function Profile() {
-  const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
-  const userpkey = searchParams.get('userpkey') ?? 0;
+  const userpkey = searchParams.get('userpkey') ?? '0';
+  const ismeyn = searchParams.get('ismeyn') ?? 'false';
 
-  const [user, setUser] = useState<User>({ userpkey: 0, nickname: '홍길동', profileimageurl: ''});
+  const [user, setUser] = useState<User>({ userpkey: 0, nickname: '', profileimageurl: ''});
 
   useEffect(() => {
     fetchUserProfile();
-    console.log(`${userpkey} 의 프로필 조회`);
   }, []);
 
   const fetchUserProfile = async () => {
     try {
-      if (typeof userpkey === "string") {
-        const response = await getUserProfile(parseInt(userpkey));
-        setUser(response.data.body.user);
-      } else {
-        const response = await getUserProfile(0);
-        setUser(response.data.body.user);
-      }
+      const response = await getUserProfile(parseInt(userpkey));
+      setUser(response.data.body.user);
     } catch (error) {
       const axiosError = error as AxiosError;
 
@@ -100,15 +81,17 @@ export default function Profile() {
         </div>
         <div className='flex-1 flex flex-col-reverse'>
           <div className='flex flex-col justify-center items-center'>
-            <img
+            <Image
               src={'/default-profile.png'}
-              className="w-22 h-22 rounded-4xl object-cover"
+              width={80}
+              height={80}
+              className="rounded-4xl object-cover"
               alt={''}/>
             <p className='mt-2'>{user.nickname}</p>
           </div>
         </div>
       </div>
-      <nav className="border-t-[1.8] border-gray-100 mt-8 h-[5rem] flex justify-center items-center gap-30">
+      <nav className="border-t-[1.8] border-gray-100 mt-8 h-[5rem] flex justify-center items-center">
         <div
           className={`flex flex-1 flex-col items-center text-black`}
           onClick={() => {
@@ -118,12 +101,13 @@ export default function Profile() {
           <MessageCircle className="w-6 h-6 color-black" />
           <span className="text-xs">채팅</span>
         </div>
-        <div
+        {Boolean(ismeyn) ? <div
           className={`flex flex-1 flex-col items-center text-black`}
+          onClick={() => {console.log('프로필 편집')}}
         >
           <Pencil className="w-6 h-6 color-black" />
           <span className="text-xs">프로필 편집</span>
-        </div>
+        </div>: <></>}
       </nav>
     </div>
   )

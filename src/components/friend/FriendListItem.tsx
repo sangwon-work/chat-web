@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Image from 'next/image';
 
 interface FriendListItemProps {
   nickname: string;
@@ -27,10 +28,12 @@ export default function FriendListItem({
       onDoubleClick={onDoubleClick}
       onClick={onClick}
     >
-      <img
+      <Image
         src={profileImageUrl || '/default-profile.png'}
         alt={nickname}
-        className="w-10 h-10 rounded-full object-cover"
+        width={35}
+        height={35}
+        className="rounded-full object-cover"
       />
       <div className="flex-1 ps-1">
         <p className="text-base font-medium">{nickname}</p>

@@ -6,6 +6,7 @@ import {AxiosError} from "axios";
 import {toast} from "@/lib/toast";
 import {useRouter} from "next/navigation";
 import {getFriendDiscoverList, postFriendAccept, postFriendRequest} from "@/lib/api/services/friend-api";
+import Image from 'next/image';
 
 interface User {
   userpkey: number;
@@ -147,9 +148,11 @@ export default function AddFriendPage() {
       {
         searchResult.map((user) => (
           <div key={user.userpkey} className="flex items-center gap-4 p-4 bg-white rounded-xl shadow mb-4">
-            <img
+            <Image
               src={'/default-profile.png'}
               alt={user.nickname}
+              width={40}
+              height={40}
               className="w-12 h-12 rounded-full object-cover"
             />
             <div className="flex-1">
@@ -178,9 +181,11 @@ export default function AddFriendPage() {
       {
         requesterUser.map((user) => (
           <div key={user.userpkey} className="flex items-center gap-4 p-4 bg-white rounded-xl shadow mb-4">
-            <img
+            <Image
               src={'/default-profile.png'}
               alt={user.nickname}
+              width={40}
+              height={40}
               className="w-12 h-12 rounded-full object-cover"
             />
             <div className="flex-1">

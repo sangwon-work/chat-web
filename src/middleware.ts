@@ -41,7 +41,7 @@ export async function middleware(request: NextRequest) {
       url.searchParams.set("redirect", request.nextUrl.pathname + request.nextUrl.search);
       return NextResponse.redirect(new URL('/login', request.url))
     }
-  } catch (error) {
+  } catch {
     url.pathname = "/login";
     url.searchParams.set("reason", "expired");
     url.searchParams.set("redirect", request.nextUrl.pathname + request.nextUrl.search);

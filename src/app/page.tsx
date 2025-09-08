@@ -35,7 +35,7 @@ export default function Home() {
           localStorage.setItem('refreshtoken', response.data.body.refreshtoken);
 
           router.replace('/chat/list');
-        } catch (error) {
+        } catch {
           router.replace('/login');
         }
       } else {

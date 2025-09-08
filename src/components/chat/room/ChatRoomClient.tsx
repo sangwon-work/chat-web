@@ -19,7 +19,6 @@ dayjs.locale('ko');
 
 export default function ChatRoomClient() {
   const searchParams = useSearchParams();
-  const chatroompkey = searchParams.get('chatroompkey') ?? '';
   const roomid = searchParams.get('roomid') ?? '';
 
   const [messages, setMessages] = useState<Message[]>([]);
@@ -74,7 +73,7 @@ export default function ChatRoomClient() {
     });
 
     return () => {
-      socket.disconnect();``
+      socket.disconnect();
       socketRef.current = null;
       if (pingIntervalRef.current) {
         clearInterval(pingIntervalRef.current);

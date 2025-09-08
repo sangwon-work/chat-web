@@ -32,11 +32,11 @@ interface ChatRoom {
 export default function ChatListPage() {
   const [chatRooms, setChatRooms] = useState<ChatRoom[]>([]);
   const router = useRouter();
-  const [now, setNow] = useState(new Date());
+  //  @typescript-eslint/no-unused-vars
+  const [now] = useState(new Date());
 
   useEffect(() => {
     getRoomList();
-    console.log(format(new Date(now), 'yy/MM/dd'))
   }, []);
 
   const getRoomList = async () => {
@@ -82,9 +82,9 @@ export default function ChatListPage() {
         {/* 스크롤 되는 리스트 영역 */}
         <div className="min-h-0 flex-1">
           <div className="grid gap-1 overflow-y-auto">
-            {chatRooms.map((room) => (
+            {chatRooms.map((room, idx: number) => (
               <div
-                key={room.chatroompkey}
+                key={idx}
                 onClick={() => handleRoomClick(room.chatroompkey, room.roomid)}
                 className="cursor-pointer bg-white p-2"
               >
