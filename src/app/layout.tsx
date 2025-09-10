@@ -5,8 +5,12 @@ import "./globals.css";
 import { ToastProvider } from "@/context/ToastContext";
 import ToastContainer from "@/components/toast/ToastContainer";
 import ClientContextBinder from "@/lib/ClientContextBinder";
-import BottomNavigation from "@/components/navigation/BottomNavigation";
+import BottomNavigation from "@/components/common/navigation/BottomNavigation";
 import {usePathname} from "next/navigation";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/grid';
 
 export default function RootLayout({
   children,
