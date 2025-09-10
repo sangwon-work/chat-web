@@ -10,7 +10,8 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import 'dayjs/locale/ko';
-import { MessageCirclePlus } from 'lucide-react';
+import {LogOutIcon, MessageCirclePlus, UserPlus} from 'lucide-react';
+import PageHeader from "@/components/common/header/Header";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -67,16 +68,20 @@ export default function ChatListPage() {
     <div className="h-[calc(100dvh-var(--nav-h)-env(safe-area-inset-bottom,0px))] p-4">
       {/* 화면 전체 높이에서 네비 높이만큼 뺀 컨테이너 */}
       {/* 헤더 영역(고정 높이) */}
-      <div className="shrink-0 mb-4 flex justify-between items-center">
-        <h1 className="text-xl font-semibold">채팅</h1>
-        <button
-          onClick={handleChatAddPage}
-          className="p-2 rounded-full hover:bg-blue-700 transition"
-          title="새 채팅방 만들기"
-        >
-          <MessageCirclePlus className="w-5 h-5 text-black" />
-        </button>
-      </div>
+      <PageHeader
+        title="채팅"
+        actions={
+          <>
+            <div
+              onClick={handleChatAddPage}
+              className="p-2 rounded-full hover:bg-blue-700 transition"
+              title="새 채팅방 만들기"
+            >
+              <MessageCirclePlus className="w-5 h-5 text-black" />
+            </div>
+          </>
+        }
+      />
       <div className="flex flex-col">
 
         {/* 스크롤 되는 리스트 영역 */}

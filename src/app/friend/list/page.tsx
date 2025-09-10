@@ -9,6 +9,7 @@ import {getUserInfo} from "@/lib/api/services/user-api";
 import FriendListItem from "@/components/friend/FriendListItem";
 import {useFriendList} from "@/hooks/friend/useFriendList";
 import Image from 'next/image';
+import PageHeader from "@/components/common/header/Header";
 
 interface User {
   userpkey: number;
@@ -64,20 +65,19 @@ export default function FriendListPage() {
 
   return (
     <div className="flex flex-col h-[calc(100dvh-var(--nav-h)-env(safe-area-inset-bottom,0px))] p-4">
-      <div className='flex items-center justify-between mb-4'>
-        <h1 className="text-xl font-semibold">친구</h1>
-        <div className='flex gap-2'>
-          <div onClick={handleFriendAdd} className="p-2 rounded-full">
-            <UserPlus className="w-5 h-5 text-black" />
-          </div>
-          <div
-            onClick={handleLogout}
-            className="p-2 rounded-full cursor-pointer"
-          >
-            <LogOutIcon className="w-5 h-5 text-black" />
-          </div>
-        </div>
-      </div>
+      <PageHeader
+        title="친구"
+        actions={
+          <>
+            <div onClick={handleFriendAdd} className="p-2 rounded-full cursor-pointer">
+              <UserPlus className="w-5 h-5 text-black" />
+            </div>
+            <div onClick={handleLogout} className="p-2 rounded-full cursor-pointer">
+              <LogOutIcon className="w-5 h-5 text-black" />
+            </div>
+          </>
+        }
+      />
 
       <ul className="space-y-1 overflow-y-auto flex-1 pb-[64px]">
         <Suspense fallback={<div>Loading...</div>}>

@@ -7,6 +7,7 @@ import {toast} from "@/lib/toast";
 import {useRouter} from "next/navigation";
 import {getFriendDiscoverList, postFriendAccept, postFriendRequest} from "@/lib/api/services/friend-api";
 import Image from 'next/image';
+import { UserPlus } from 'lucide-react';
 
 interface User {
   userpkey: number;
@@ -37,11 +38,13 @@ export default function AddFriendPage() {
   useEffect(() => {
     setIsSearchBtn(searchTerm.length > 0);
   }, [searchTerm]);
-
+  /**
+   * 친구 요청 목록 조회
+   */
   const fetchFriendDiscover = async () => {
     try {
       const response = await getFriendDiscoverList();
-      setRequestUser(response.data.body.userlist); // 더미 매칭
+      setRequestUser(response.data.body.userlist);
     } catch (error) {
       const axiosError = error as AxiosError;
 
@@ -53,13 +56,15 @@ export default function AddFriendPage() {
       }
     }
   }
-
+  /**
+   * 친구 추가 검색 조회
+   */
   const handleSearch = async () => {
     if (!searchTerm) return;
 
     try {
       const response = await getUserSearch(searchTerm);
-      setSearchResult(response.data.body.userlist); // 더미 매칭
+      setSearchResult(response.data.body.userlist);
     } catch (error) {
       const axiosError = error as AxiosError;
 
@@ -147,26 +152,25 @@ export default function AddFriendPage() {
 
       {
         searchResult.map((user) => (
-          <div key={user.userpkey} className="flex items-center gap-4 p-4 bg-white rounded-xl shadow mb-4">
+          <div key={user.userpkey} className="flex items-center gap-4 p-4 bg-white rounded-xl mb-4">
             <Image
               src={'/default-profile.png'}
               alt={user.nickname}
-              width={40}
-              height={40}
-              className="w-12 h-12 rounded-full object-cover"
+              width={38}
+              height={38}
+              className="rounded-full object-cover"
             />
             <div className="flex-1">
               <p className="text-base font-medium">{user.nickname}</p>
-              <p className="text-sm text-gray-500">{user.phone}</p>
             </div>
             {!added ? (
               <button
                 onClick={() => {
                   handleAddFriend(user.userpkey)
                 }}
-                className="px-3 py-1 text-sm bg-green-500 text-white rounded-md hover:bg-green-600"
+                className="px-3 py-1 text-sm rounded-md bg-gray-100"
               >
-                추가
+                <UserPlus className="w-5 h-5 text-black"/>
               </button>
             ) : (
               <span className="text-sm text-green-600 font-semibold">추가됨</span>
@@ -180,7 +184,7 @@ export default function AddFriendPage() {
       </div>
       {
         requesterUser.map((user) => (
-          <div key={user.userpkey} className="flex items-center gap-4 p-4 bg-white rounded-xl shadow mb-4">
+          <div key={user.userpkey} className="flex items-center gap-4 p-4 bg-white rounded-xl mb-4">
             <Image
               src={'/default-profile.png'}
               alt={user.nickname}
@@ -196,9 +200,9 @@ export default function AddFriendPage() {
                 onClick={() => {
                   handleAcceptFriend(user.userpkey)
                 }}
-                className="px-3 py-1 text-sm bg-green-500 text-white rounded-md hover:bg-green-600"
+                className="px-3 py-1 text-sm rounded-md bg-gray-100"
               >
-                추가
+                <UserPlus className="w-5 h-5 text-black"/>
               </button>
             ) : (
               <span className="text-sm text-green-600 font-semibold">추가됨</span>
