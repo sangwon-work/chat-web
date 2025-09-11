@@ -10,7 +10,7 @@ import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import 'dayjs/locale/ko';
-import {LogOutIcon, MessageCirclePlus, UserPlus} from 'lucide-react';
+import {MessageCirclePlus} from 'lucide-react';
 import PageHeader from "@/components/common/header/Header";
 
 dayjs.extend(utc);

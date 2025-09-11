@@ -1,6 +1,6 @@
 'use client'
 
-import {CalendarCheck, Gift, Laugh, Gamepad2} from 'lucide-react';
+import {CalendarCheck, Gift, Laugh} from 'lucide-react';
 import Link from "next/link";
 import {usePathname} from "next/navigation";
 import {Swiper, SwiperSlide} from "swiper/react";
